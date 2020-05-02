@@ -8,6 +8,7 @@ O que foi usado no desenvolvimento:
 - Rg.Plugins.PopUp (https://github.com/rotorgames/Rg.Plugins.Popup)
 - CollectionView
 - XamarinForms 4.6.0.726
+### OBS: Filtro na lista de lojas e cadastro de cartão estão funcionais. =)
 
 ## Screenshots
 ### Android
