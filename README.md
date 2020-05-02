@@ -1,4 +1,4 @@
-# Xamarin.Forms Wallet CreditCard
+# Xamarin.Forms Wallet Credit Card App
 Conceito de Wallet Credit Card App desenvolvido com XamarinForms.
 O que foi usado no desenvolvimento:
 - Padrão MVVM (sem framework)
