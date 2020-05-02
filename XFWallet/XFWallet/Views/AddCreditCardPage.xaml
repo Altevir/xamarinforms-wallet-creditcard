@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    x:Class="XFWallet.Views.AddCreditCardPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mask="clr-namespace:XFWallet.Behaviors"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:renderers="clr-namespace:XFWallet.Renderers"
+    xmlns:viewmodels="clr-namespace:XFWallet.ViewModels"
+    x:DataType="viewmodels:AddCreditCardPageViewModel"
+    HasKeyboardOffset="False"
+    mc:Ignorable="d">
+
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"
+            PositionIn="Right"
+            PositionOut="Right"
+            ScaleIn="1.2"
+            ScaleOut="0.8" />
+    </pages:PopupPage.Animation>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="colorGray">Gray</Color>
+            <Style x:Key="frameConfirm" TargetType="pancakeView:PancakeView">
+                <Setter Property="BackgroundColor" Value="Black" />
+                <Setter Property="CornerRadius" Value="40,0,0,0" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+            <Style x:Key="frameCancel" TargetType="pancakeView:PancakeView">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="CornerRadius" Value="10,0,0,0" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="10,0,0,0" />
+            </Style>
+            <Style x:Key="btnCancel" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="TextColor" Value="Black" />
+            </Style>
+            <Style x:Key="btnConfirm" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Black" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="TextColor" Value="White" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <pancakeView:PancakeView
+        x:Name="pancake"
+        Margin="20,0,20,0"
+        BackgroundColor="White"
+        CornerRadius="50"
+        HasShadow="False"
+        HeightRequest="380"
+        HorizontalOptions="Center"
+        VerticalOptions="Start"
+        WidthRequest="350">
+        <Grid ColumnSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image
+                Grid.Row="0"
+                Margin="40,40,0,0"
+                Aspect="AspectFit"
+                HeightRequest="30"
+                HorizontalOptions="Start"
+                Source="{Binding CardFlag}"
+                WidthRequest="48" />
+            <StackLayout
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                Margin="22,0,25,0"
+                Padding="20"
+                Spacing="{OnPlatform Android='0',
+                                     iOS='20'}">
+                <renderers:CustomEntryBorderless
+                    x:Name="entryCardName"
+                    FontSize="Small"
+                    Keyboard="Text"
+                    Placeholder="Card name"
+                    PlaceholderColor="{StaticResource colorGray}"
+                    ReturnType="Next"
+                    Text="{Binding CardName}" />
+                <renderers:CustomEntryBorderless
+                    FontSize="Small"
+                    Keyboard="Numeric"
+                    Placeholder="Number"
+                    PlaceholderColor="{StaticResource colorGray}"
+                    ReturnType="Next"
+                    Text="{Binding CardNumber}">
+                    <renderers:CustomEntryBorderless.Behaviors>
+                        <mask:MaskBehavior MaskText="#### #### #### ####" />
+                    </renderers:CustomEntryBorderless.Behaviors>
+                </renderers:CustomEntryBorderless>
+                <renderers:CustomEntryBorderless
+                    FontSize="Small"
+                    Keyboard="Numeric"
+                    Placeholder="Expiration date"
+                    PlaceholderColor="{StaticResource colorGray}"
+                    ReturnType="Next"
+                    Text="{Binding CardExpirationDate}">
+                    <renderers:CustomEntryBorderless.Behaviors>
+                        <mask:MaskBehavior MaskText="##/##" />
+                    </renderers:CustomEntryBorderless.Behaviors>
+                </renderers:CustomEntryBorderless>
+                <renderers:CustomEntryBorderless
+                    FontSize="Small"
+                    Keyboard="Numeric"
+                    Placeholder="CVV"
+                    PlaceholderColor="{StaticResource colorGray}"
+                    ReturnType="Done"
+                    Text="{Binding CardCVV}">
+                    <renderers:CustomEntryBorderless.Behaviors>
+                        <mask:MaskBehavior MaskText="###" />
+                    </renderers:CustomEntryBorderless.Behaviors>
+                </renderers:CustomEntryBorderless>
+            </StackLayout>
+            <pancakeView:PancakeView
+                Grid.Row="2"
+                Grid.Column="0"
+                Style="{StaticResource frameCancel}">
+                <Button
+                    Command="{Binding ClosePopUpCommand}"
+                    Style="{StaticResource btnCancel}"
+                    Text="CANCEL" />
+            </pancakeView:PancakeView>
+            <pancakeView:PancakeView
+                Grid.Row="2"
+                Grid.Column="1"
+                Style="{StaticResource frameConfirm}">
+                <Button
+                    Command="{Binding AddCardCommand}"
+                    Style="{StaticResource btnConfirm}"
+                    Text="CONFIRM" />
+            </pancakeView:PancakeView>
+        </Grid>
+    </pancakeView:PancakeView>
+</pages:PopupPage>

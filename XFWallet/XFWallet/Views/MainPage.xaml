@@ -1,0 +1,421 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="XFWallet.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cardView="clr-namespace:PanCardView;assembly=PanCardView"
+    xmlns:controls="clr-namespace:PanCardView.Controls;assembly=PanCardView"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:XFWallet.Models"
+    xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:proc="clr-namespace:PanCardView.Processors;assembly=PanCardView"
+    xmlns:renderers="clr-namespace:XFWallet.Renderers"
+    xmlns:viewmodels="clr-namespace:XFWallet.ViewModels"
+    ios:Page.UseSafeArea="True"
+    x:DataType="viewmodels:MainPageViewModel"
+    BackgroundColor="Black"
+    NavigationPage.HasNavigationBar="False"
+    mc:Ignorable="d">
+
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ActiveIndicatorColor" TargetType="controls:IndicatorsControl">
+                <Setter Property="BackgroundColor" Value="#4867EA" />
+            </Style>
+            <Style x:Key="InactiveIndicatorColor" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="OutlineColor" Value="#bdbdbd" />
+            </Style>
+            <Color x:Key="colorPink">#FF1577</Color>
+            <Color x:Key="colorWhite">#ffffff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid BackgroundColor="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid
+            Grid.Row="0"
+            Margin="40,20,0,10"
+            ColumnSpacing="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <ImageButton
+                Grid.Column="0"
+                Aspect="AspectFit"
+                BackgroundColor="Transparent"
+                HeightRequest="22"
+                Source="ic_menu.png"
+                WidthRequest="22" />
+            <ImageButton
+                Grid.Column="1"
+                Aspect="AspectFit"
+                BackgroundColor="Transparent"
+                HeightRequest="22"
+                Source="ic_heart.png"
+                WidthRequest="22" />
+            <ImageButton
+                Grid.Column="2"
+                Aspect="AspectFit"
+                BackgroundColor="Transparent"
+                HeightRequest="22"
+                Source="ic_notification.png"
+                WidthRequest="22" />
+            <ImageButton
+                Grid.Column="3"
+                Aspect="AspectFit"
+                BackgroundColor="Transparent"
+                HeightRequest="22"
+                Source="ic_shopping_bag.png"
+                WidthRequest="22" />
+            <BoxView
+                Grid.Column="3"
+                Margin="0,0,-3,0"
+                BackgroundColor="Red"
+                CornerRadius="6"
+                HeightRequest="12"
+                HorizontalOptions="End"
+                VerticalOptions="Start"
+                WidthRequest="12" />
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Image
+                Grid.Column="0"
+                Margin="-5,10,0,0"
+                Aspect="AspectFit"
+                HeightRequest="28"
+                Source="ic_x_left.png"
+                TranslationY="20"
+                WidthRequest="28" />
+            <pancakeView:PancakeView
+                Grid.Column="1"
+                Margin="8,20,10,10"
+                Padding="{OnPlatform Android='0,6,0,0',
+                                     iOS='0,2,0,2'}"
+                BackgroundColor="{StaticResource colorWhite}"
+                CornerRadius="{OnPlatform Android='30',
+                                          iOS='22'}"
+                HasShadow="False"
+                HeightRequest="40">
+                <Grid Padding="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <renderers:CustomEntryBorderless
+                        x:Name="entrySearch"
+                        Grid.Column="0"
+                        Margin="30,0,0,0"
+                        FontFamily="Poppins-Regular"
+                        FontSize="Small"
+                        HorizontalOptions="FillAndExpand"
+                        Placeholder="Search"
+                        Text="{Binding SearchText}"
+                        VerticalOptions="Center">
+                        <renderers:CustomEntryBorderless.Keyboard>
+                            <Keyboard x:FactoryMethod="Create">
+                                <x:Arguments>
+                                    <KeyboardFlags>None</KeyboardFlags>
+                                </x:Arguments>
+                            </Keyboard>
+                        </renderers:CustomEntryBorderless.Keyboard>
+                    </renderers:CustomEntryBorderless>
+                    <ImageButton
+                        Grid.Column="1"
+                        Margin="{OnPlatform Android='0,-4,25,0',
+                                            iOS='0,-2,25,0'}"
+                        Aspect="AspectFit"
+                        BackgroundColor="Transparent"
+                        Command="{Binding SearchCommand}"
+                        HeightRequest="18"
+                        Source="ic_search.png"
+                        WidthRequest="18">
+                        <ImageButton.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsVisibleBtnClose}"
+                                TargetType="ImageButton"
+                                Value="True">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                        </ImageButton.Triggers>
+                    </ImageButton>
+                    <ImageButton
+                        Grid.Column="1"
+                        Margin="{OnPlatform Android='0,-4,25,0',
+                                            iOS='0,-2,25,0'}"
+                        Aspect="AspectFit"
+                        BackgroundColor="Transparent"
+                        Command="{Binding ClearSearchTextCommand}"
+                        HeightRequest="22"
+                        IsVisible="{Binding IsVisibleBtnClose}"
+                        Source="ic_close.png"
+                        WidthRequest="22" />
+                </Grid>
+            </pancakeView:PancakeView>
+            <Image
+                Grid.Column="2"
+                Margin="0,0,-5,0"
+                Aspect="AspectFit"
+                HeightRequest="28"
+                Source="ic_x_right.png"
+                WidthRequest="28" />
+        </Grid>
+        <ScrollView Grid.Row="2">
+            <pancakeView:PancakeView BackgroundColor="{StaticResource colorWhite}" CornerRadius="60,60,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <StackLayout
+                        Grid.Row="0"
+                        Margin="35,25,45,10"
+                        Orientation="Horizontal">
+                        <Label
+                            FontFamily="PoppinsSemiBold"
+                            FontSize="22"
+                            HorizontalOptions="StartAndExpand"
+                            Text="Cards" />
+                        <Label
+                            CharacterSpacing="2"
+                            FontFamily="PoppinsSemiBold"
+                            FontSize="22"
+                            HorizontalOptions="End"
+                            Text="..."
+                            VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding NavigateToAddCreditCardPageCommand}" NumberOfTapsRequired="1" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                    <cardView:CoverFlowView
+                        Grid.Row="1"
+                        IsCyclical="False"
+                        ItemsSource="{Binding Cards}"
+                        PositionShiftValue="65">
+                        <x:Arguments>
+                            <proc:BaseCoverFlowFrontViewProcessor RotationFactor="0.5" ScaleFactor="0.75" />
+                            <proc:BaseCoverFlowBackViewProcessor ScaleFactor="0.75" />
+                        </x:Arguments>
+                        <cardView:CoverFlowView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Card">
+                                <pancakeView:PancakeView
+                                    Margin="35,0,44,35"
+                                    Padding="0"
+                                    BackgroundColor="{StaticResource colorWhite}"
+                                    CornerRadius="15"
+                                    Elevation="10"
+                                    HasShadow="False"
+                                    HeightRequest="180">
+                                    <Grid RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image
+                                            Grid.RowSpan="3"
+                                            Grid.ColumnSpan="2"
+                                            Aspect="AspectFill"
+                                            HorizontalOptions="FillAndExpand"
+                                            Source="{Binding cardBackground}"
+                                            VerticalOptions="FillAndExpand" />
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.ColumnSpan="2"
+                                            Margin="15,10,0,0"
+                                            FontFamily="PoppinsSemiBold"
+                                            FontSize="10"
+                                            Text="Business"
+                                            TextColor="{StaticResource colorWhite}"
+                                            VerticalOptions="Start" />
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            Margin="{OnPlatform Android='15,0,0,34',
+                                                                iOS='15,0,0,38'}"
+                                            Padding="5"
+                                            FontFamily="PoppinsSemiBold"
+                                            FontSize="{OnPlatform Android='15',
+                                                                  iOS='18'}"
+                                            Text="{Binding cardFakeNumber}"
+                                            TextColor="{StaticResource colorWhite}"
+                                            VerticalOptions="End" />
+                                        <Label
+                                            Grid.Row="2"
+                                            Grid.ColumnSpan="2"
+                                            Margin="15,0,0,5"
+                                            FontFamily="PoppinsSemiBold"
+                                            FontSize="Small"
+                                            LineBreakMode="TailTruncation"
+                                            Text="{Binding cardName}"
+                                            TextColor="{StaticResource colorWhite}"
+                                            VerticalOptions="Center" />
+                                        <Image
+                                            Grid.Row="2"
+                                            Grid.Column="1"
+                                            Margin="0,0,15,10"
+                                            Aspect="AspectFit"
+                                            HeightRequest="36"
+                                            Source="{Binding cardFlag}"
+                                            WidthRequest="48" />
+                                    </Grid>
+                                </pancakeView:PancakeView>
+                            </DataTemplate>
+                        </cardView:CoverFlowView.ItemTemplate>
+                        <controls:IndicatorsControl
+                            Margin="0,20,0,0"
+                            IsVisible="True"
+                            SelectedIndicatorStyle="{StaticResource ActiveIndicatorColor}"
+                            UnselectedIndicatorStyle="{StaticResource InactiveIndicatorColor}" />
+                    </cardView:CoverFlowView>
+                    <StackLayout
+                        Grid.Row="2"
+                        Margin="38,20,20,0"
+                        Orientation="Horizontal"
+                        Spacing="0">
+                        <Label
+                            FontFamily="PoppinsSemiBold"
+                            FontSize="20"
+                            HorizontalOptions="StartAndExpand"
+                            Text="Latest Offers"
+                            VerticalOptions="Center" />
+                        <Label
+                            Margin="0,2,5,0"
+                            FontFamily="PoppinsRegular"
+                            FontSize="Micro"
+                            HorizontalOptions="End"
+                            Text="Sort by"
+                            VerticalOptions="Center" />
+                        <Label
+                            Margin="0,2,5,0"
+                            FontFamily="PoppinsRegular"
+                            FontSize="Micro"
+                            HorizontalOptions="End"
+                            Text="Recent"
+                            TextColor="#2D51E9"
+                            VerticalOptions="Center" />
+                        <Image
+                            Margin="0,2,0,0"
+                            Aspect="AspectFit"
+                            HeightRequest="10"
+                            Source="ic_down_arrow.png"
+                            VerticalOptions="Center"
+                            WidthRequest="10" />
+                    </StackLayout>
+                    <CollectionView
+                        x:Name="listStore"
+                        Grid.Row="3"
+                        Margin="35,0,0,0"
+                        ItemsSource="{Binding StoresSearch}"
+                        SelectionMode="None"
+                        VerticalScrollBarVisibility="Never">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Store">
+                                <Grid RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="0.3" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <pancakeView:PancakeView
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Margin="5,20,0,20"
+                                        Padding="15"
+                                        BackgroundColor="#F5F6FA"
+                                        CornerRadius="20"
+                                        Elevation="6"
+                                        HasShadow="False">
+                                        <Image
+                                            Aspect="AspectFit"
+                                            HeightRequest="36"
+                                            Source="{Binding image}"
+                                            WidthRequest="36" />
+                                    </pancakeView:PancakeView>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Margin="20,0,0,0"
+                                        Spacing="0"
+                                        VerticalOptions="Center">
+                                        <Label
+                                            FontFamily="PoppinsMedium"
+                                            FontSize="17"
+                                            LineBreakMode="TailTruncation"
+                                            Text="{Binding name}" />
+                                        <Label
+                                            FontSize="Small"
+                                            Text="Just Now"
+                                            TextColor="#C0C4D5" />
+                                    </StackLayout>
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        Margin="0,-15,22,0"
+                                        FontFamily="PoppinsMedium"
+                                        FontSize="12"
+                                        Text="Shop Now"
+                                        TextColor="{StaticResource colorPink}"
+                                        VerticalOptions="Center">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                x:DataType="{x:Null}"
+                                                Command="{Binding Path=BindingContext.OpenLinkCommand, Source={x:Reference listStore}}"
+                                                CommandParameter="{Binding .}"
+                                                NumberOfTapsRequired="1" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="3"
+                                        Margin="5,0,0,0"
+                                        BackgroundColor="#bdbdbd"
+                                        HeightRequest="1"
+                                        HorizontalOptions="FillAndExpand" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                        <CollectionView.EmptyView>
+                            <Label
+                                Padding="20,20,55,0"
+                                FontSize="Micro"
+                                HorizontalOptions="FillAndExpand"
+                                HorizontalTextAlignment="Center"
+                                Text="No results found =("
+                                TextColor="Gray"
+                                VerticalOptions="FillAndExpand" />
+                        </CollectionView.EmptyView>
+                    </CollectionView>
+                </Grid>
+            </pancakeView:PancakeView>
+        </ScrollView>
+    </Grid>
+</ContentPage>
