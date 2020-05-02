@@ -69,7 +69,7 @@ namespace XFWallet.ViewModels
             Cards.Add(new Card()
             {
                 cardNumber = "4012001037141112",
-                cardName = "CHETAN KARAKOTI",
+                cardName = "CHETAN SINGH",
                 cardFlag = "visa.png"
             });
 
