@@ -22,7 +22,8 @@ O que foi usado no desenvolvimento:
 ![ezgif com-resize (1)](https://user-images.githubusercontent.com/11803107/80870446-daa06700-8c7c-11ea-8d7a-2487b95b01a7.gif)
 
 ## Créditos
-### Design - Chetan Singh <br/>
+### Design 
+[Chetan Singh](https://www.linkedin.com/in/chetan-singh-774193160/) <br/>
 ![1e1cd745006e68d3df127cfdcd5de0ff](https://user-images.githubusercontent.com/11803107/80869679-31577200-8c78-11ea-8fe0-a313cf310351.png)
 
 ### Licença
