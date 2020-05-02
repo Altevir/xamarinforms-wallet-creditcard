@@ -1,5 +1,5 @@
 # Xamarin.Forms Wallet CreditCard
-Desenvolvendo interfaces com XamarinForms.
+Conceito de Wallet App desenvolvido com XamarinForms.
 O que foi usado no desenvolvimento:
 - Padrão MVVM (sem framework)
 - PancakeView (https://github.com/sthewissen/Xamarin.Forms.PancakeView)
